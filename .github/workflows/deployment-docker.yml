@@ -87,7 +87,9 @@ jobs:
           ssh-add ~/.ssh/id_rsa
 
       - name: Test SSH Connection
-        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo SSH connection successful"
+        run: |
+          sudo apt install sshpass
+          sshpass -p 'Emokids@1234' ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo SSH connection successful"
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
